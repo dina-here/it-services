@@ -1,4 +1,8 @@
-# KarriärOps (POC)
+# KarriärOps - IT services POC
+
+🚀 Publik länk - Live Demo: https://it-services-2ywb.onrender.com/
+
+Fullstack POC (CRM, ERP, HR, Resurs, Data) byggd i React, TypeScript, Node.js och MongoDB.
 
 ## Starta projektet lokalt
 ```bash
@@ -60,12 +64,6 @@ Efter seed finns demoanvändare:
    ```bash
    npm run seed
    ```
-
----
-
-## Produktion / Publik länk
-För att göra POC:en publik (en URL att lägga på LinkedIn) finns en guide i:
-- `DEPLOYMENT.md`
 
 ---
 
