@@ -1,21 +1,29 @@
 # KarriärOps (POC)
 
-> **Svenska först**, men applikationen har språkknapp (SV/EN) uppe till höger.
+## Starta projektet lokalt
+```bash
+docker-compose up --build
 
-KarriärOps är en **proof-of-concept** för ett modulärt affärssystem för ett IT-/konsultbolag:
-- **CRM** (leads, accounts, kontakter, affärer)
-- **Mini-ERP** (fakturor kopplade till affärer)
-- **HR** (anställda, roller, kompetenser)
-- **Resurssystem** (projekt, beläggning/assignments)
-- **Dataplattform** (händelselogg + KPI:er)
+KarriärOps är en proof-of-concept för ett modulärt affärssystem för ett IT-/konsultbolag.
 
-## Teknik
-- Frontend: **React + TypeScript + Vite**
-- Backend: **Node.js + TypeScript + Express**
-- DB: **MongoDB (Mongoose)**
-- DevOps: **Docker + Docker Compose**, **GitHub Actions**
-- Säkerhet: **JWT + RBAC** (Admin / Chef / Medarbetare)
+## Funktioner
+- Dashboard (totala tal, affärer per status, bekäggning / intäkt per konsult, intäkt per kund)
+- CRM (leads, accounts, kontakter, affärer) - i framtiden ska utveckla till Kundhantering
+- Mini-ERP (fakturor kopplade till affärer) - i framtiden ska utveckla till Affärsprocesser
+- HR (anställda, roller, kompetenser)
+- Resurssystem (projekt, beläggning/assignments)
+- Dataplattform (händelselogg + KPI:er) - i framtiden ska utveckla till Samlad data
 
+## Teknikstack
+- Frontend: React + TypeScript + Vite
+- Backend: Node.js + TypeScript + Express
+- DB: MongoDB
+- DevOps: Docker + Docker Compose, GitHub Actions
+- Säkerhet: JWT + RBAC (Admin / Chef / Medarbetare)
+
+## Språk
+- Svenska 🇸🇪
+- Engelska 🇬🇧 (växlas via knapp i UI)
 ---
 
 ## Kör lokalt (Docker)
@@ -31,9 +39,9 @@ KarriärOps är en **proof-of-concept** för ett modulärt affärssystem för et
 
 ### Logga in (demo)
 Efter seed finns demoanvändare:
-- **Admin**: `admin@karriarops.se` / `Losen123!`
-- **Chef**: `chef@karriarops.se` / `Losen123!`
-- **Medarbetare**: `medarbetare@karriarops.se` / `Losen123!`
+- Admin: `admin@karriarops.se` / `Losen123!`
+- Chef: `chef@karriarops.se` / `Losen123!`
+- Medarbetare: `medarbetare@karriarops.se` / `Losen123!`
 
 > Du kan köra seed manuellt: `npm run seed`
 
