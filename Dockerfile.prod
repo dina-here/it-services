@@ -1,38 +1,51 @@
-# =========================
-# Production Dockerfile
-# Bygger web + api och serverar React via Express.
-# =========================
-
+# -------------------------
+# Build (installerar deps + bygger)
+# -------------------------
 FROM node:20-alpine AS build
 WORKDIR /repo
 
-# Kopiera hela monorepo
+# Kopiera package-filer först för bättre cache
+COPY package.json package-lock.json ./
+COPY apps/api/package.json apps/api/package.json
+COPY apps/web/package.json apps/web/package.json
+COPY packages/shared/package.json packages/shared/package.json
+
+# Installera deps (behövs för att bygga)
+RUN npm ci
+
+# Kopiera resten av koden och bygg
 COPY . .
-
-# Installera alla workspaces
-RUN npm install
-
-# Bygg shared + api + web
 RUN npm run build
 
+# Ta bort dev-deps efter bygg (mindre image)
+RUN npm prune --omit=dev
+
 # -------------------------
-# Runtime
+# Runtime (kör servern)
 # -------------------------
 FROM node:20-alpine AS runtime
 WORKDIR /app
-
 ENV NODE_ENV=production
-ENV PORT=4000
 
-# Kopiera byggd API-kod och web-dist
-COPY --from=build /repo/apps/api/dist ./api/dist
-COPY --from=build /repo/apps/api/package.json ./api/package.json
-COPY --from=build /repo/apps/api/node_modules ./api/node_modules
+# Root node_modules (workspaces deps ligger här)
+COPY --from=build /repo/node_modules ./node_modules
 
-COPY --from=build /repo/apps/web/dist ./web/dist
+# Behövs för workspace-paket (t.ex. @karriarops/shared)
+COPY --from=build /repo/packages ./packages
 
-# Minimal server som hostar web + api
-COPY infra/prod-server.js ./prod-server.js
+# API: kör färdigbyggd dist
+COPY --from=build /repo/apps/api/dist ./apps/api/dist
+COPY --from=build /repo/apps/api/package.json ./apps/api/package.json
+
+# Seed-data (JSON-filer) – behövs om SEED_ON_START=true
+COPY --from=build /repo/apps/api/src/seed/data ./apps/api/src/seed/data
+
+# Web: statiska filer
+COPY --from=build /repo/apps/web/dist ./apps/web/dist
+
+# Server (prod-server)
+COPY --from=build /repo/infra ./infra
+COPY --from=build /repo/package.json ./package.json
 
 EXPOSE 4000
-CMD ["node", "prod-server.js"]
+CMD ["node", "infra/prod-server.js"]
