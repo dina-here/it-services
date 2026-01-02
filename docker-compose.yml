@@ -1,0 +1,40 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: karriarops-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    container_name: karriarops-api
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - PORT=4000
+      - MONGO_URL=mongodb://mongo:27017/karriarops
+      - JWT_SECRET=dev_secret_byta_i_prod
+      - CORS_ORIGIN=http://localhost:5173
+      - SEED_ON_START=true
+    depends_on:
+      - mongo
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    container_name: karriarops-web
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:4000
+    depends_on:
+      - api
+
+volumes:
+  mongo_data:

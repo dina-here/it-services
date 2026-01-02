@@ -1,0 +1,93 @@
+[
+  {
+    "employeeKey": "e_admin",
+    "namn": "Anna Sjöberg",
+    "epost": "anna.sjoberg@karriarops.se",
+    "roll": "VD",
+    "kompetenser": [
+      "Ledarskap",
+      "Strategi",
+      "Affärsutveckling"
+    ],
+    "startdatum": "2022-01-10T09:00:00.000Z",
+    "status": "AKTIV"
+  },
+  {
+    "employeeKey": "e_chef",
+    "namn": "Johan Lind",
+    "epost": "johan.lind@karriarops.se",
+    "roll": "TEKNIKCHEF",
+    "kompetenser": [
+      "Arkitektur",
+      "Node.js",
+      "Cloud"
+    ],
+    "startdatum": "2023-03-01T09:00:00.000Z",
+    "status": "AKTIV"
+  },
+  {
+    "employeeKey": "e_sales",
+    "namn": "Elin Karlsson",
+    "epost": "elin.karlsson@karriarops.se",
+    "roll": "SALJ",
+    "kompetenser": [
+      "B2B-sälj",
+      "Upphandling",
+      "CRM"
+    ],
+    "startdatum": "2023-08-15T09:00:00.000Z",
+    "status": "AKTIV"
+  },
+  {
+    "employeeKey": "e_hr",
+    "namn": "Maja Nilsson",
+    "epost": "maja.nilsson@karriarops.se",
+    "roll": "HR",
+    "kompetenser": [
+      "Onboarding",
+      "Arbetsrätt",
+      "Employer branding"
+    ],
+    "startdatum": "2024-02-05T09:00:00.000Z",
+    "status": "AKTIV"
+  },
+  {
+    "employeeKey": "e_consult1",
+    "namn": "Oskar Bergström",
+    "epost": "oskar.bergstrom@karriarops.se",
+    "roll": "KONSULT",
+    "kompetenser": [
+      "React",
+      "TypeScript",
+      "UX"
+    ],
+    "startdatum": "2024-09-02T09:00:00.000Z",
+    "status": "AKTIV"
+  },
+  {
+    "employeeKey": "e_consult2",
+    "namn": "Fatima Hassan",
+    "epost": "fatima.hassan@karriarops.se",
+    "roll": "KONSULT",
+    "kompetenser": [
+      "Node.js",
+      "MongoDB",
+      "Docker"
+    ],
+    "startdatum": "2024-11-11T09:00:00.000Z",
+    "status": "AKTIV"
+  },
+  {
+    "employeeKey": "e_consult3",
+    "namn": "Viktor Andersson",
+    "epost": "viktor.andersson@karriarops.se",
+    "roll": "KONSULT",
+    "kompetenser": [
+      "Azure",
+      "Kubernetes",
+      "CI/CD"
+    ],
+    "startdatum": "2025-01-13T09:00:00.000Z",
+    "status": "ONBOARDING"
+  }
+]

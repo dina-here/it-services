@@ -1,0 +1,38 @@
+# =========================
+# Production Dockerfile
+# Bygger web + api och serverar React via Express.
+# =========================
+
+FROM node:20-alpine AS build
+WORKDIR /repo
+
+# Kopiera hela monorepo
+COPY . .
+
+# Installera alla workspaces
+RUN npm install
+
+# Bygg shared + api + web
+RUN npm run build
+
+# -------------------------
+# Runtime
+# -------------------------
+FROM node:20-alpine AS runtime
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=4000
+
+# Kopiera byggd API-kod och web-dist
+COPY --from=build /repo/apps/api/dist ./api/dist
+COPY --from=build /repo/apps/api/package.json ./api/package.json
+COPY --from=build /repo/apps/api/node_modules ./api/node_modules
+
+COPY --from=build /repo/apps/web/dist ./web/dist
+
+# Minimal server som hostar web + api
+COPY infra/prod-server.js ./prod-server.js
+
+EXPOSE 4000
+CMD ["node", "prod-server.js"]

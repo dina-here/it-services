@@ -1,0 +1,1 @@
+Seed körs via tsx och läser JSON-filer i src/seed/data.

@@ -1,0 +1,32 @@
+[
+  {
+    "accountKey": "a_northwind",
+    "namn": "Per Holm",
+    "epost": "per.holm@northwind.se",
+    "titel": "IT-chef"
+  },
+  {
+    "accountKey": "a_northwind",
+    "namn": "Ida Wiberg",
+    "epost": "ida.wiberg@northwind.se",
+    "titel": "Produktägare"
+  },
+  {
+    "accountKey": "a_stadspartner",
+    "namn": "Karin Ek",
+    "epost": "karin.ek@stadspartner.se",
+    "titel": "Upphandlingsansvarig"
+  },
+  {
+    "accountKey": "a_baltic",
+    "namn": "Sofia Lundqvist",
+    "epost": "sofia.lundqvist@balticlogistik.se",
+    "titel": "Operations Manager"
+  },
+  {
+    "accountKey": "a_gronenergi",
+    "namn": "Marcus Dahl",
+    "epost": "marcus.dahl@gronenergi.se",
+    "titel": "CTO"
+  }
+]

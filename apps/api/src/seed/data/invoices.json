@@ -1,0 +1,14 @@
+[
+  {
+    "dealKey": "d_baltic_resurs",
+    "beloppSEK": 210000,
+    "status": "BETALD",
+    "forfallodatum": "2025-01-20T12:00:00.000Z"
+  },
+  {
+    "dealKey": "d_baltic_resurs",
+    "beloppSEK": 210000,
+    "status": "SKICKAD",
+    "forfallodatum": "2025-02-20T12:00:00.000Z"
+  }
+]

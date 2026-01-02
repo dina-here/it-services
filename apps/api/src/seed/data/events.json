@@ -1,0 +1,20 @@
+[
+  {
+    "typ": "SYSTEM_START",
+    "entitet": "system",
+    "entitetId": "karriarops",
+    "payload": {
+      "miljo": "seed"
+    },
+    "userKey": "u_admin"
+  },
+  {
+    "typ": "DEMO_NOTIS",
+    "entitet": "info",
+    "entitetId": "welcome",
+    "payload": {
+      "text": "Välkommen till KarriärOps – klicka runt och testa modulerna!"
+    },
+    "userKey": "u_admin"
+  }
+]

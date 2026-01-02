@@ -1,0 +1,42 @@
+[
+  {
+    "dealKey": "d_northwind_crm",
+    "accountKey": "a_northwind",
+    "namn": "CRM-uppgradering + Integration",
+    "vardeSEK": 850000,
+    "fas": "OFFERT",
+    "sannolikhet": 60,
+    "agareEmployeeKey": "e_sales",
+    "forvantatAvslut": "2025-02-15T12:00:00.000Z"
+  },
+  {
+    "dealKey": "d_stadspartner_data",
+    "accountKey": "a_stadspartner",
+    "namn": "Dataplattform för rapportering",
+    "vardeSEK": 1250000,
+    "fas": "MOTE",
+    "sannolikhet": 40,
+    "agareEmployeeKey": "e_sales",
+    "forvantatAvslut": "2025-03-10T12:00:00.000Z"
+  },
+  {
+    "dealKey": "d_baltic_resurs",
+    "accountKey": "a_baltic",
+    "namn": "Resursplanering + Timesheet (POC)",
+    "vardeSEK": 420000,
+    "fas": "VUNNEN",
+    "sannolikhet": 90,
+    "agareEmployeeKey": "e_sales",
+    "forvantatAvslut": "2024-12-05T12:00:00.000Z"
+  },
+  {
+    "dealKey": "d_gronenergi_cloud",
+    "accountKey": "a_gronenergi",
+    "namn": "Cloud-migrering (förstudie)",
+    "vardeSEK": 300000,
+    "fas": "FORLORAD",
+    "sannolikhet": 10,
+    "agareEmployeeKey": "e_sales",
+    "forvantatAvslut": "2024-11-20T12:00:00.000Z"
+  }
+]

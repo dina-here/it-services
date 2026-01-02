@@ -1,0 +1,23 @@
+[
+  {
+    "userKey": "u_admin",
+    "epost": "admin@karriarops.se",
+    "losen": "Losen123!",
+    "roll": "ADMIN",
+    "employeeKey": "e_admin"
+  },
+  {
+    "userKey": "u_chef",
+    "epost": "chef@karriarops.se",
+    "losen": "Losen123!",
+    "roll": "CHEF",
+    "employeeKey": "e_chef"
+  },
+  {
+    "userKey": "u_med",
+    "epost": "medarbetare@karriarops.se",
+    "losen": "Losen123!",
+    "roll": "MEDARBETARE",
+    "employeeKey": "e_consult1"
+  }
+]
