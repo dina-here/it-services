@@ -36,6 +36,8 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
 export const api = {
   get: <T = any>(path: string) => request<T>(path),
+  post: <T = any>(path: string, data?: any) => request<T>(path, { method: "POST", body: JSON.stringify(data) }),
+  patch: <T = any>(path: string, data?: any) => request<T>(path, { method: "PATCH", body: JSON.stringify(data) }),
   health: () => request<{ ok: boolean }>("/health"),
   login: (epost: string, losen: string) =>
     request<{ token: string; user: any }>("/auth/login", { method: "POST", body: JSON.stringify({ epost, losen }) }),
