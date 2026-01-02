@@ -14,6 +14,8 @@ import { AssignmentModel } from "../modules/resurs/assignment.model.js";
 import { EventModel } from "../modules/data/event.model.js";
 import { UserModel } from "../modules/auth/user.model.js";
 
+import { connectDb } from "../server/db.js";
+
 /**
  * Seedar databasen med realistisk demo-data (svenska namn, företag, tjänster).
  * Varje kollektion har en egen JSON-fil i src/seed/data.
@@ -22,6 +24,10 @@ import { UserModel } from "../modules/auth/user.model.js";
  */
 export async function seedAll() {
   console.log("Startar seed...");
+
+  // Koppla upp databasen innan vi använder modellerna
+  await connectDb();
+  await mongoose.connection.asPromise();
 
   const dataDir = path.join(process.cwd(), "src", "seed", "data");
 
