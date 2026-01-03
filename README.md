@@ -4,6 +4,9 @@
 
 Fullstack POC (CRM, ERP, HR, Resurs, Data) byggd i React, TypeScript, Node.js och MongoDB.
 
+## Obs:
+Demo körs på Render free tier. Efter ~15 min utan trafik kan första laddningen ta lite längre tid (cold start). Detta är normalt för portfolio-demos.
+
 ## Starta projektet lokalt
 ```bash
 docker-compose up --build
