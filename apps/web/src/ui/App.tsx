@@ -44,6 +44,8 @@ export function App() {
             <div className="brand">{t("appName")}</div>
             <nav className="nav small" aria-label="Huvudmeny">
               <Link to="/dashboard">{t("nav.dashboard")}</Link>
+              <Link to="/crm/accounts">{t("crm.accountsTitle")}</Link>
+              <Link to="/crm/leads">{t("crm.leadsTitle")}</Link>
               <Link to="/crm/deals">{t("nav.crm")}</Link>
               <Link to="/hr/employees">{t("nav.hr")}</Link>
               <Link to="/res/assignments">{t("nav.resurs")}</Link>

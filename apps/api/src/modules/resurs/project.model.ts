@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 export interface ProjectDoc extends mongoose.Document {
   projectKey?: string;
+  dealId?: string | mongoose.Types.ObjectId;
   accountId: string | mongoose.Types.ObjectId;
   namn: string;
   start: Date;
@@ -12,6 +13,7 @@ export interface ProjectDoc extends mongoose.Document {
 const ProjectSchema = new mongoose.Schema<ProjectDoc>(
   {
     projectKey: { type: String, unique: true, sparse: true },
+    dealId: { type: mongoose.Schema.Types.ObjectId, ref: "deals", sparse: true, index: true },
     accountId: { type: mongoose.Schema.Types.ObjectId, ref: "accounts", required: true, index: true },
     namn: { type: String, required: true },
     start: { type: Date, required: true },

@@ -7,10 +7,38 @@ export function ErpInvoicesPage() {
   const { t } = useTranslation();
   const [items, setItems] = useState<any[]>([]);
   const [fel, setFel] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
+
+  const loadInvoices = () => {
+    api.invoices().then((r) => {
+      // Gruppera fakturor per projekt och lägg till sekvensnummer
+      const itemsWithSequence = r.items.map((item: any, index: number, array: any[]) => {
+        const projectId = typeof item.projectId === 'string' ? item.projectId : item.projectId?._id;
+        const sameProjectInvoices = array.filter((inv: any) => {
+          const invProjectId = typeof inv.projectId === 'string' ? inv.projectId : inv.projectId?._id;
+          return invProjectId === projectId;
+        });
+        const sequenceNumber = sameProjectInvoices.findIndex((inv: any) => inv._id === item._id) + 1;
+        return { ...item, sequenceNumber, totalForProject: sameProjectInvoices.length };
+      });
+      setItems(itemsWithSequence);
+    }).catch((e) => setFel(e.message));
+  };
 
   useEffect(() => {
-    api.invoices().then((r) => setItems(r.items)).catch((e) => setFel(e.message));
+    loadInvoices();
   }, []);
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    setFel(null);
+    try {
+      await api.patch(`/erp/invoices/${id}/status`, { status: newStatus });
+      loadInvoices();
+      setEditingId(null);
+    } catch (err: any) {
+      setFel(err.message);
+    }
+  };
 
   return (
     <div className="card">
@@ -20,21 +48,56 @@ export function ErpInvoicesPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>DealId</th>
+            <th>Kund</th>
+            <th>Affär</th>
+            <th>#</th>
             <th>Belopp</th>
             <th>Status</th>
             <th>Förfallodatum</th>
+            <th>Åtgärd</th>
           </tr>
         </thead>
         <tbody>
-          {items.map((i) => (
-            <tr key={i._id}>
-              <td className="small">{String(i.dealId)}</td>
-              <td>{Number(i.beloppSEK).toLocaleString()} SEK</td>
-              <td><span className="badge">{i.status}</span></td>
-              <td>{formatDate(i.forfallodatum)}</td>
-            </tr>
-          ))}
+          {items.map((i) => {
+            const project = i.projectId;
+            const account = typeof project?.accountId === 'object' ? project.accountId : null;
+            const deal = typeof project?.dealId === 'object' ? project.dealId : null;
+            
+            return (
+              <tr key={i._id}>
+                <td>{account?.namn || project?.accountId || "-"}</td>
+                <td>{deal?.namn || project?.dealId || "-"}</td>
+                <td className="small">{i.totalForProject > 1 ? `${i.sequenceNumber}` : "1"}</td>
+                <td>{Number(i.beloppSEK).toLocaleString()} SEK</td>
+                <td>
+                  {editingId === i._id ? (
+                    <select
+                      className="input"
+                      style={{ padding: 4, fontSize: 12 }}
+                      defaultValue={i.status}
+                      onChange={(e) => handleStatusChange(i._id, e.target.value)}
+                    >
+                      <option value="UTKAST">UTKAST</option>
+                      <option value="SKICKAD">SKICKAD</option>
+                      <option value="BETALD">BETALD</option>
+                    </select>
+                  ) : (
+                    <span className="badge">{i.status}</span>
+                  )}
+                </td>
+                <td>{formatDate(i.forfallodatum)}</td>
+                <td>
+                  <button
+                    className="button ghost"
+                    style={{ padding: "4px 8px", fontSize: 12 }}
+                    onClick={() => setEditingId(editingId === i._id ? null : i._id)}
+                  >
+                    {editingId === i._id ? "Avbryt" : "Ändra status"}
+                  </button>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

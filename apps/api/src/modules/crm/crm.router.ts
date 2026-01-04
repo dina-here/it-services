@@ -19,8 +19,10 @@ const LeadCreate = z.object({
   namn: z.string().min(2),
   epost: z.string().email(),
   kalla: z.string().min(2),
+  accountId: z.string().min(1).optional(),
   status: z.enum(["NY", "KONTAKTAD", "KVALIFICERAD", "AVSLUTAD"]).optional(),
 });
+const LeadUpdate = LeadCreate.partial();
 
 crmRouter.get("/leads", async (req, res, next) => {
   try {
@@ -29,7 +31,7 @@ crmRouter.get("/leads", async (req, res, next) => {
       ? { $or: [{ namn: { $regex: q, $options: "i" } }, { epost: { $regex: q, $options: "i" } }, { kalla: { $regex: q, $options: "i" } }] }
       : {};
 
-    const items = await LeadModel.find(filter).sort({ skapad: -1 }).limit(200).lean();
+    const items = await LeadModel.find(filter).populate("accountId", "namn bransch").sort({ skapad: -1 }).limit(200).lean();
     res.json({ items });
   } catch (err) {
     next(err);
@@ -47,8 +49,24 @@ crmRouter.post("/leads", requireRole("ADMIN", "CHEF"), async (req: AuthedRequest
   }
 });
 
+crmRouter.patch("/leads/:id", requireRole("ADMIN", "CHEF"), async (req: AuthedRequest, res, next) => {
+  try {
+    const id = req.params.id;
+    const body = LeadUpdate.parse(req.body);
+
+    const updated = await LeadModel.findByIdAndUpdate(id, { $set: body }, { new: true }).lean();
+    if (!updated) throw new HttpError(404, "Lead hittades inte.");
+
+    await loggaEvent({ typ: "LEAD_ANDRAD", entitet: "lead", entitetId: String(id), actorUserId: req.user!.id, payload: body });
+    res.json(updated);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // === Accounts ===
 const AccountCreate = z.object({ namn: z.string().min(2), bransch: z.string().min(2) });
+const AccountUpdate = AccountCreate.partial();
 
 crmRouter.get("/accounts", async (req, res, next) => {
   try {
@@ -67,6 +85,21 @@ crmRouter.post("/accounts", requireRole("ADMIN", "CHEF"), async (req: AuthedRequ
     const created = await AccountModel.create(body);
     await loggaEvent({ typ: "ACCOUNT_SKAPAD", entitet: "account", entitetId: String(created._id), actorUserId: req.user!.id, payload: body });
     res.status(201).json(created);
+  } catch (err) {
+    next(err);
+  }
+});
+
+crmRouter.patch("/accounts/:id", requireRole("ADMIN", "CHEF"), async (req: AuthedRequest, res, next) => {
+  try {
+    const id = req.params.id;
+    const body = AccountUpdate.parse(req.body);
+
+    const updated = await AccountModel.findByIdAndUpdate(id, { $set: body }, { new: true }).lean();
+    if (!updated) throw new HttpError(404, "Kund hittades inte.");
+
+    await loggaEvent({ typ: "ACCOUNT_ANDRAD", entitet: "account", entitetId: String(id), actorUserId: req.user!.id, payload: body });
+    res.json(updated);
   } catch (err) {
     next(err);
   }
@@ -112,6 +145,7 @@ const DealCreate = z.object({
   agareEmployeeId: z.string().min(1),
   forvantatAvslut: z.string().datetime(),
 });
+const DealUpdate = DealCreate.partial();
 
 crmRouter.get("/deals", async (_req, res, next) => {
   try {
@@ -132,6 +166,26 @@ crmRouter.post("/deals", requireRole("ADMIN", "CHEF"), async (req: AuthedRequest
     const created = await DealModel.create({ ...body, forvantatAvslut: new Date(body.forvantatAvslut) });
     await loggaEvent({ typ: "DEAL_SKAPAD", entitet: "deal", entitetId: String(created._id), actorUserId: req.user!.id, payload: body });
     res.status(201).json(created);
+  } catch (err) {
+    next(err);
+  }
+});
+
+crmRouter.patch("/deals/:id", requireRole("ADMIN", "CHEF"), async (req: AuthedRequest, res, next) => {
+  try {
+    const id = req.params.id;
+    const body = DealUpdate.parse(req.body);
+    
+    const updateData: any = { ...body };
+    if (body.forvantatAvslut) {
+      updateData.forvantatAvslut = new Date(body.forvantatAvslut);
+    }
+
+    const updated = await DealModel.findByIdAndUpdate(id, { $set: updateData }, { new: true }).lean();
+    if (!updated) throw new HttpError(404, "Affär hittades inte.");
+
+    await loggaEvent({ typ: "DEAL_ANDRAD", entitet: "deal", entitetId: String(id), actorUserId: req.user!.id, payload: body });
+    res.json(updated);
   } catch (err) {
     next(err);
   }
@@ -162,7 +216,9 @@ crmRouter.patch("/deals/:id/stage", requireRole("ADMIN", "CHEF"), async (req: Au
   }
 });
 
-// Move won deal to ERP (create Invoice)
+// DEPRECATED: Move won deal to ERP (create Invoice)
+// NOTE: Invoices should now be created from Projects, not directly from Deals
+// This endpoint is kept for backwards compatibility but should create a project first
 const DealToInvoice = z.object({
   beloppSEK: z.number().nonnegative(),
   forfallodatum: z.string().datetime(),
@@ -178,23 +234,9 @@ crmRouter.post("/deals/:id/to-invoice", requireRole("ADMIN", "CHEF"), async (req
     if (!deal) throw new HttpError(404, "Affär hittades inte.");
     if (deal.fas !== "VUNNEN") throw new HttpError(400, "Affären måste ha status VUNNEN för att skapa faktura.");
 
-    // Create invoice in ERP
-    const invoice = await InvoiceModel.create({
-      dealId: id,
-      beloppSEK: body.beloppSEK,
-      forfallodatum: new Date(body.forfallodatum),
-      status: "UTKAST",
-    });
-
-    await loggaEvent({
-      typ: "DEAL_TILL_FAKTURA",
-      entitet: "deal",
-      entitetId: String(id),
-      actorUserId: req.user!.id,
-      payload: { invoiceId: String(invoice._id), beloppSEK: body.beloppSEK },
-    });
-
-    res.status(201).json({ invoice, deal });
+    // TODO: This should create a Project first, then create Invoice for that Project
+    // For now, return error message suggesting proper workflow
+    throw new HttpError(400, "Skapa först ett projekt från denna affär, sedan skapa faktura för projektet.");
   } catch (err) {
     next(err);
   }

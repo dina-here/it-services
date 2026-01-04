@@ -3,24 +3,28 @@
     "namn": "Karin Ek",
     "epost": "karin.ek@stadspartner.se",
     "kalla": "LinkedIn",
-    "status": "KONTAKTAD"
+    "status": "KONTAKTAD",
+    "_accountKey": "a_stadspartner"
   },
   {
     "namn": "Per Holm",
     "epost": "per.holm@northwind.se",
     "kalla": "Webbformulär",
-    "status": "NY"
+    "status": "NY",
+    "_accountKey": "a_northwind"
   },
   {
     "namn": "Sofia Lundqvist",
     "epost": "sofia.lundqvist@balticlogistik.se",
     "kalla": "Rekommendation",
-    "status": "KVALIFICERAD"
+    "status": "KVALIFICERAD",
+    "_accountKey": "a_baltic"
   },
   {
     "namn": "Marcus Dahl",
     "epost": "marcus.dahl@gronenergi.se",
     "kalla": "Event (TechDays)",
-    "status": "NY"
+    "status": "NY",
+    "_accountKey": "a_gronenergi"
   }
 ]

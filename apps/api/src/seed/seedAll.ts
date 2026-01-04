@@ -99,11 +99,14 @@ export async function seedAll() {
   for (const u of users as any[]) userByKey.set(u.userKey, String(u._id));
 
   // 5) CRM: leads, accounts, contacts, deals
-  const leads = await LeadModel.insertMany(leadsRaw);
   const accounts = await AccountModel.insertMany(accountsRaw);
 
   const accountByKey = new Map<string, string>();
   for (const a of accounts as any[]) accountByKey.set(a.accountKey, String(a._id));
+
+  const leads = await LeadModel.insertMany(
+    leadsRaw.map((l: any) => ({ ...l, accountId: l._accountKey ? accountByKey.get(l._accountKey) : undefined }))
+  );
 
   const contacts = await ContactModel.insertMany(
     contactsRaw.map((c: any) => ({ ...c, accountId: accountByKey.get(c.accountKey) }))
@@ -121,19 +124,11 @@ export async function seedAll() {
   const dealByKey = new Map<string, string>();
   for (const d of deals as any[]) dealByKey.set(d.dealKey, String(d._id));
 
-  // 6) ERP: invoices (kopplade till deals)
-  const invoices = await InvoiceModel.insertMany(
-    invoicesRaw.map((inv: any) => ({
-      ...inv,
-      dealId: dealByKey.get(inv.dealKey),
-      forfallodatum: new Date(inv.forfallodatum),
-    }))
-  );
-
-  // 7) Resurs: projects + assignments
+  // 6) Resurs: projects (kopplade till deals)
   const projects = await ProjectModel.insertMany(
     projectsRaw.map((p: any) => ({
       ...p,
+      dealId: p.dealKey ? dealByKey.get(p.dealKey) : undefined,
       accountId: accountByKey.get(p.accountKey),
       start: new Date(p.start),
       ...(p.slut ? { slut: new Date(p.slut) } : {}),
@@ -143,6 +138,16 @@ export async function seedAll() {
   const projectByKey = new Map<string, string>();
   for (const p of projects as any[]) projectByKey.set(p.projectKey, String(p._id));
 
+  // 7) ERP: invoices (kopplade till projects)
+  const invoices = await InvoiceModel.insertMany(
+    invoicesRaw.map((inv: any) => ({
+      ...inv,
+      projectId: projectByKey.get(inv.projectKey),
+      forfallodatum: new Date(inv.forfallodatum),
+    }))
+  );
+
+  // 8) Resurs: assignments
   const assignments = await AssignmentModel.insertMany(
     assignmentsRaw.map((a: any) => ({
       ...a,

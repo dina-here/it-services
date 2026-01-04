@@ -12,22 +12,25 @@ erpRouter.use(requireAuth);
 erpRouter.get("/invoices", async (_req, res, next) => {
   try {
     const items = await InvoiceModel.find()
-      .populate("dealId", "namn fas vardeSEK accountId")
+      .populate({
+        path: "projectId",
+        select: "namn start slut dealId accountId",
+        populate: [
+          { path: "dealId", select: "namn fas vardeSEK" },
+          { path: "accountId", select: "namn bransch" }
+        ]
+      })
       .sort({ skapad: -1 })
       .limit(200)
       .lean();
-    const itemsWithStringIds = items.map((item: any) => ({
-      ...item,
-      dealId: String(item.dealId?._id || item.dealId),
-    }));
-    res.json({ items: itemsWithStringIds });
+    res.json({ items });
   } catch (err) {
     next(err);
   }
 });
 
 const InvoiceCreate = z.object({
-  dealId: z.string().min(1),
+  projectId: z.string().min(1),
   beloppSEK: z.number().nonnegative(),
   status: z.enum(["UTKAST", "SKICKAD", "BETALD"]).optional(),
   forfallodatum: z.string().datetime(),

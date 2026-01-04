@@ -10,6 +10,7 @@ export function CrmAccountsPage() {
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ namn: "", bransch: "" });
   const [loading, setLoading] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const loadAccounts = () => {
     api.accounts(q || undefined).then((r) => setItems(r.items)).catch((e) => setFel(e.message));
@@ -19,13 +20,28 @@ export function CrmAccountsPage() {
     loadAccounts();
   }, [q]);
 
-  const handleCreate = async (e: React.FormEvent) => {
+  const startEdit = (a: any) => {
+    setEditingId(a._id);
+    setFormData({ namn: a.namn, bransch: a.bransch });
+    setShowForm(true);
+  };
+
+  const resetForm = () => {
+    setEditingId(null);
+    setFormData({ namn: "", bransch: "" });
+  };
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setFel(null);
     try {
-      await api.post("/crm/accounts", formData);
-      setFormData({ namn: "", bransch: "" });
+      if (editingId) {
+        await api.patch(`/crm/accounts/${editingId}`, formData);
+      } else {
+        await api.post("/crm/accounts", formData);
+      }
+      resetForm();
       setShowForm(false);
       loadAccounts();
     } catch (err: any) {
@@ -41,7 +57,10 @@ export function CrmAccountsPage() {
         <h2 style={{ marginTop: 0 }}>{t("crm.accountsTitle")}</h2>
         <div style={{ display: "flex", gap: 10 }}>
           <input className="input" style={{ maxWidth: 320 }} placeholder={t("common.search")} value={q} onChange={(e) => setQ(e.target.value)} />
-          <button className="button" onClick={() => setShowForm(!showForm)}>
+          <button className="button" onClick={() => {
+            if (showForm) { resetForm(); }
+            setShowForm(!showForm);
+          }}>
             {showForm ? "Avbryt" : "+ Lägg till kund"}
           </button>
         </div>
@@ -50,7 +69,7 @@ export function CrmAccountsPage() {
       {fel ? <div className="small" style={{ color: "crimson" }}>{fel}</div> : null}
 
       {showForm && (
-        <form onSubmit={handleCreate} style={{ marginBottom: 20, padding: 15, border: "1px solid #ddd", borderRadius: 4 }}>
+        <form onSubmit={handleSave} style={{ marginBottom: 20, padding: 15, border: "1px solid #ddd", borderRadius: 4 }}>
           <div style={{ marginBottom: 10 }}>
             <label>Kundnamn *</label>
             <input
@@ -71,9 +90,16 @@ export function CrmAccountsPage() {
               required
             />
           </div>
-          <button className="button" type="submit" disabled={loading}>
-            {loading ? "Sparar..." : "Spara kund"}
-          </button>
+          <div style={{ display: "flex", gap: 10 }}>
+            <button className="button" type="submit" disabled={loading}>
+              {loading ? "Sparar..." : editingId ? "Spara ändring" : "Spara kund"}
+            </button>
+            {editingId ? (
+              <button className="button ghost" type="button" onClick={() => resetForm()}>
+                Rensa
+              </button>
+            ) : null}
+          </div>
         </form>
       )}
 
@@ -82,6 +108,7 @@ export function CrmAccountsPage() {
           <tr>
             <th>Namn</th>
             <th>Bransch</th>
+            <th style={{ width: 120 }}>Åtgärd</th>
           </tr>
         </thead>
         <tbody>
@@ -89,6 +116,11 @@ export function CrmAccountsPage() {
             <tr key={a._id}>
               <td>{a.namn}</td>
               <td>{a.bransch}</td>
+              <td>
+                <button className="button ghost" onClick={() => startEdit(a)}>
+                  Redigera
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
