@@ -110,12 +110,12 @@ export function HrEmployeesPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Namn</th>
-            <th>Roll</th>
-            <th>Kompetenser</th>
-            <th>Start</th>
-            <th>Status</th>
-            <th>Åtgärd</th>
+            <th>{t("table.name")}</th>
+            <th>{t("table.role")}</th>
+            <th>{t("table.competencies")}</th>
+            <th>{t("table.start")}</th>
+            <th>{t("table.status")}</th>
+            <th>{t("table.action")}</th>
           </tr>
         </thead>
         <tbody>

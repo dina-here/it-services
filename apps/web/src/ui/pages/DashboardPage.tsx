@@ -43,7 +43,7 @@ export function DashboardPage() {
     <div>
       <div className="row">
         <div className="col card">
-          <h2 style={{ marginTop: 0 }}>Dashboard - KPI Översikt</h2>
+          <h2 style={{ marginTop: 0 }}>{t("dashboard.title")}</h2>
           {fel ? <div className="small" style={{ color: "crimson" }}>{fel}</div> : null}
 
           <div className="row">
@@ -53,13 +53,13 @@ export function DashboardPage() {
             <Kpi title="Totala Fakturor" value={overview?.kpis?.totalInvoices || "—"} />
           </div>
 
-          <h3>Affärer per status</h3>
+          <h3>{t("dashboard.dealsTitle")}</h3>
           <table className="table">
             <thead>
               <tr>
-                <th>Fas</th>
-                <th>Antal</th>
-                <th>Total värde</th>
+                <th>{t("table.stage")}</th>
+                <th>{t("table.count")}</th>
+                <th>{t("table.totalValue")}</th>
               </tr>
             </thead>
             <tbody>
@@ -75,13 +75,13 @@ export function DashboardPage() {
         </div>
 
         <div className="col card">
-          <h3 style={{ marginTop: 0 }}>Intäkt per kund</h3>
+          <h3 style={{ marginTop: 0 }}>{t("dashboard.revenueByCustomer")}</h3>
           <table className="table">
             <thead>
               <tr>
-                <th>Kund</th>
-                <th>Intäkt</th>
-                <th>Fakturor</th>
+                <th>{t("table.customer")}</th>
+                <th>{t("dashboard.kpiRevenue")}</th>
+                <th>{t("table.invoices")}</th>
               </tr>
             </thead>
             <tbody>
@@ -99,13 +99,13 @@ export function DashboardPage() {
 
       <div className="row">
         <div className="col card">
-          <h3 style={{ marginTop: 0 }}>Beläggning per konsult</h3>
+          <h3 style={{ marginTop: 0 }}>{t("dashboard.utilizationByConsultant")}</h3>
           <table className="table">
             <thead>
               <tr>
-                <th>Konsult</th>
-                <th>Beläggning</th>
-                <th>Projekt</th>
+                <th>{t("table.consultant")}</th>
+                <th>{t("table.utilization")}</th>
+                <th>{t("table.project")}</th>
               </tr>
             </thead>
             <tbody>
@@ -135,12 +135,12 @@ export function DashboardPage() {
         </div>
 
         <div className="col card">
-          <h3 style={{ marginTop: 0 }}>Intäkt per konsult</h3>
+          <h3 style={{ marginTop: 0 }}>{t("dashboard.revenueByConsultant")}</h3>
           <table className="table">
             <thead>
               <tr>
-                <th>Konsult</th>
-                <th>Estimerad intäkt</th>
+                <th>{t("table.consultant")}</th>
+                <th>{t("table.estimatedRevenue")}</th>
               </tr>
             </thead>
             <tbody>

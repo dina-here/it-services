@@ -20,10 +20,10 @@ export function CrmContactsPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Namn</th>
-            <th>E-post</th>
-            <th>Titel</th>
-            <th>AccountId</th>
+            <th>{t("table.name")}</th>
+            <th>{t("table.email")}</th>
+            <th>{t("table.title")}</th>
+            <th>{t("table.account")}</th>
           </tr>
         </thead>
         <tbody>

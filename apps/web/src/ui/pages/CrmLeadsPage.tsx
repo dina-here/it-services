@@ -147,12 +147,12 @@ export function CrmLeadsPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Namn</th>
-            <th>E-post</th>
-            <th>Källa</th>
-            <th>Kund (Account)</th>
-            <th>Status</th>
-            <th style={{ width: 120 }}>Åtgärd</th>
+            <th>{t("table.name")}</th>
+            <th>{t("table.email")}</th>
+            <th>{t("table.source")}</th>
+            <th>{t("table.account")}</th>
+            <th>{t("table.status")}</th>
+            <th style={{ width: 120 }}>{t("table.action")}</th>
           </tr>
         </thead>
         <tbody>

@@ -20,11 +20,11 @@ export function ResAssignmentsPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>EmployeeId</th>
-            <th>ProjectId</th>
-            <th>Beläggning</th>
-            <th>Från</th>
-            <th>Till</th>
+            <th>{t("table.employeeId")}</th>
+            <th>{t("table.projectId")}</th>
+            <th>{t("table.utilization")}</th>
+            <th>{t("table.from")}</th>
+            <th>{t("table.to")}</th>
           </tr>
         </thead>
         <tbody>

@@ -263,13 +263,13 @@ export function CrmDealsPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Namn</th>
-            <th>Kund</th>
-            <th>Värde</th>
-            <th>Fas</th>
-            <th>Sannolikhet</th>
-            <th>Förväntat avslut</th>
-            <th>Åtgärd</th>
+            <th>{t("table.name")}</th>
+            <th>{t("table.customer")}</th>
+            <th>{t("table.value")}</th>
+            <th>{t("table.stage")}</th>
+            <th>{t("table.probability")}</th>
+            <th>{t("table.expectedCompletion")}</th>
+            <th>{t("table.action")}</th>
           </tr>
         </thead>
         <tbody>

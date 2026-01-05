@@ -106,9 +106,9 @@ export function CrmAccountsPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Namn</th>
-            <th>Bransch</th>
-            <th style={{ width: 120 }}>Åtgärd</th>
+            <th>{t("table.name")}</th>
+            <th>{t("table.industry")}</th>
+            <th style={{ width: 120 }}>{t("table.action")}</th>
           </tr>
         </thead>
         <tbody>

@@ -48,13 +48,13 @@ export function ErpInvoicesPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Kund</th>
-            <th>Affär</th>
+            <th>{t("table.customer")}</th>
+            <th>{t("table.deal")}</th>
             <th>#</th>
-            <th>Belopp</th>
-            <th>Status</th>
-            <th>Förfallodatum</th>
-            <th>Åtgärd</th>
+            <th>{t("table.amount")}</th>
+            <th>{t("table.status")}</th>
+            <th>{t("table.dueDate")}</th>
+            <th>{t("table.action")}</th>
           </tr>
         </thead>
         <tbody>

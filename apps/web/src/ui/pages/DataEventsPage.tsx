@@ -36,10 +36,10 @@ export function DataEventsPage() {
         <table className="table">
           <thead>
             <tr>
-              <th>Tidstämpel</th>
-              <th>Händelsetyp</th>
-              <th>Entitet</th>
-              <th>Detaljer</th>
+              <th>{t("table.timestamp")}</th>
+              <th>{t("table.eventType")}</th>
+              <th>{t("table.entity")}</th>
+              <th>{t("table.details")}</th>
             </tr>
           </thead>
           <tbody>

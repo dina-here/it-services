@@ -20,10 +20,10 @@ export function ResProjectsPage() {
       <table className="table">
         <thead>
           <tr>
-            <th>Namn</th>
-            <th>Start</th>
-            <th>Slut</th>
-            <th>AccountId</th>
+            <th>{t("table.name")}</th>
+            <th>{t("table.start")}</th>
+            <th>{t("table.end")}</th>
+            <th>{t("table.account")}</th>
           </tr>
         </thead>
         <tbody>
