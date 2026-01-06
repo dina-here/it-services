@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/main.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node -e \"const fs=require('fs');const path=require('path');fs.cpSync('src/seed/data','dist/seed/data',{recursive:true})\"",
     "lint": "eslint .",
     "test": "vitest run",
     "seed": "tsx src/seed/seed.ts"

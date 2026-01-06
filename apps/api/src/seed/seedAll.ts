@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import bcrypt from "bcryptjs";
 import mongoose from "mongoose";
 
@@ -16,6 +17,9 @@ import { UserModel } from "../modules/auth/user.model.js";
 
 import { connectDb } from "../server/db.js";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 /**
  * Seedar databasen med realistisk demo-data (svenska namn, företag, tjänster).
  * Varje kollektion har en egen JSON-fil i src/seed/data.
@@ -29,7 +33,7 @@ export async function seedAll() {
   await connectDb();
   await mongoose.connection.asPromise();
 
-  const dataDir = path.join(process.cwd(), "src", "seed", "data");
+  const dataDir = path.join(__dirname, "data");
 
   // 1) Läs JSON-filer
   const [
