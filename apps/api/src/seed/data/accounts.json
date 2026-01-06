@@ -2,21 +2,25 @@
   {
     "accountKey": "a_northwind",
     "namn": "Northwind Sverige AB",
-    "bransch": "Retail / E-handel"
+    "bransch": "Retail / E-commerce",
+    "status": "AKTIV"
   },
   {
     "accountKey": "a_stadspartner",
     "namn": "Stadspartner Förvaltning",
-    "bransch": "Fastighet / Offentlig sektor"
+    "bransch": "Real Estate / Public Sector",
+    "status": "AKTIV"
   },
   {
     "accountKey": "a_baltic",
     "namn": "Baltic Logistik",
-    "bransch": "Transport / Logistik"
+    "bransch": "Transport / Logistics",
+    "status": "AKTIV"
   },
   {
     "accountKey": "a_gronenergi",
     "namn": "GrönEnergi Norden",
-    "bransch": "Energi"
+    "bransch": "Energy",
+    "status": "INAKTIV"
   }
 ]

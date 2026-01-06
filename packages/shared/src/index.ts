@@ -51,6 +51,10 @@ export const DealSchema = z.object({
   sannolikhet: z.number().min(0).max(100).default(20),
   agareEmployeeId: z.string(),
   forvantatAvslut: z.string().datetime(),
+  kontaktLeadId: z.string().optional(),
+  kontaktNamn: z.string().optional(),
+  kontaktEpost: z.string().email().optional(),
+  kontaktTitel: z.string().optional(),
   skapad: z.string().datetime().optional(),
 });
 export type Deal = z.infer<typeof DealSchema>;

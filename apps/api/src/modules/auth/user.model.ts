@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export type UserRoll = "ADMIN" | "CHEF" | "MEDARBETARE";
+export type UserRoll = "SUPERADMIN" | "ADMIN" | "CHEF" | "MEDARBETARE";
 
 export interface UserDoc extends mongoose.Document {
   epost: string;
@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema<UserDoc>(
   {
     epost: { type: String, required: true, unique: true, lowercase: true, index: true },
     losenHash: { type: String, required: true },
-    roll: { type: String, required: true, enum: ["ADMIN", "CHEF", "MEDARBETARE"] },
+    roll: { type: String, required: true, enum: ["SUPERADMIN", "ADMIN", "CHEF", "MEDARBETARE"] },
     employeeId: { type: String, required: false },
   },
   { timestamps: { createdAt: "skapad", updatedAt: false } }

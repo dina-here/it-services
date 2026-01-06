@@ -9,6 +9,7 @@ import { hrRouter } from "../modules/hr/hr.router.js";
 import { erpRouter } from "../modules/erp/erp.router.js";
 import { resursRouter } from "../modules/resurs/resurs.router.js";
 import { dataRouter } from "../modules/data/data.router.js";
+import { adminRouter } from "../modules/admin/admin.router.js";
 import { errorMiddleware } from "./errorMiddleware.js";
 
 /**
@@ -34,6 +35,7 @@ export function createApp() {
   app.use("/erp", erpRouter);
   app.use("/res", resursRouter);
   app.use("/data", dataRouter);
+  app.use("/admin", adminRouter);
 
   app.use(errorMiddleware);
   return app;

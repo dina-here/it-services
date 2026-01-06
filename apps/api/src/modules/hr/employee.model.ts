@@ -7,7 +7,7 @@ export interface EmployeeDoc extends mongoose.Document {
   roll: "KONSULT" | "SALJ" | "HR" | "TEKNIKCHEF" | "VD";
   kompetenser: string[];
   startdatum: Date;
-  status: "AKTIV" | "ONBOARDING" | "OFFBOARDING" | "UPPSAGD";
+  status: "AKTIV" | "ONBOARDING" | "OFFBOARDING" | "UPPSAGD" | "INAKTIV";
   skapad: Date;
 }
 
@@ -19,7 +19,7 @@ const EmployeeSchema = new mongoose.Schema<EmployeeDoc>(
     roll: { type: String, required: true, enum: ["KONSULT", "SALJ", "HR", "TEKNIKCHEF", "VD"] },
     kompetenser: { type: [String], required: true, default: [] },
     startdatum: { type: Date, required: true },
-    status: { type: String, required: true, enum: ["AKTIV", "ONBOARDING", "OFFBOARDING", "UPPSAGD"], default: "AKTIV" },
+    status: { type: String, required: true, enum: ["AKTIV", "ONBOARDING", "OFFBOARDING", "UPPSAGD", "INAKTIV"], default: "AKTIV" },
   },
   { timestamps: { createdAt: "skapad", updatedAt: false } }
 );

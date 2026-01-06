@@ -44,15 +44,15 @@ export function DataEventsPage() {
           </thead>
           <tbody>
             {items.map((e) => (
-              <tbody key={e._id}>
-                <tr onClick={() => setExpandedId(expandedId === e._id ? null : e._id)} style={{ cursor: "pointer" }}>
+              <>
+                <tr key={e._id} onClick={() => setExpandedId(expandedId === e._id ? null : e._id)} style={{ cursor: "pointer" }}>
                   <td>{e.skapad ? formatDate(e.skapad) : "—"}</td>
                   <td><span className="badge">{e.typ}</span></td>
                   <td>{e.entitet} ({e.entitetId?.substring(0, 8)}...)</td>
                   <td className="small">{e.payload ? JSON.stringify(e.payload).substring(0, 40) : "—"}...</td>
                 </tr>
                 {expandedId === e._id && (
-                  <tr style={{ backgroundColor: "#f5f5f5" }}>
+                  <tr key={`${e._id}-expanded`} style={{ backgroundColor: "#f5f5f5" }}>
                     <td colSpan={4}>
                       <div style={{ padding: 10, fontSize: 12 }}>
                         <div><strong>Entitet:</strong> {e.entitet}</div>
@@ -70,7 +70,7 @@ export function DataEventsPage() {
                     </td>
                   </tr>
                 )}
-              </tbody>
+              </>
             ))}
           </tbody>
         </table>

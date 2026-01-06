@@ -20,6 +20,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     ...options,
     headers: {
       "Content-Type": "application/json",
+      "Accept-Language": i18n.language || "sv",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(options.headers || {}),
     },
@@ -34,6 +35,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+import i18n from "../i18n/i18n";
 export const api = {
   get: <T = any>(path: string) => request<T>(path),
   post: <T = any>(path: string, data?: any) => request<T>(path, { method: "POST", body: JSON.stringify(data) }),
@@ -58,6 +60,9 @@ export const api = {
   // Resurs
   projects: () => request<{ items: any[] }>(`/res/projects`),
   assignments: () => request<{ items: any[] }>(`/res/assignments`),
+
+  // Admin
+  demoReset: () => request<{ ok: boolean; message?: string }>(`/admin/demo-reset`, { method: "POST" }),
 
   // Data
   events: (page = 1, pageSize = 20) =>

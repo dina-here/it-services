@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Link } from "react-router-dom";
+import { Routes, Route, Navigate, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
@@ -20,6 +20,7 @@ type Me = { id: string; epost: string; roll: string } | null;
 export function App() {
   const { t, i18n } = useTranslation();
   const [me, setMe] = useState<Me>(null);
+  const location = useLocation();
 
   // Försök läsa "me" om token finns
   useEffect(() => {
@@ -33,6 +34,27 @@ export function App() {
         setMe(null);
       });
   }, []);
+
+  useEffect(() => {
+    const path = location.pathname;
+    const titleKey =
+      path.startsWith("/dashboard") ? "dashboard.title" :
+      path.startsWith("/crm/leads") ? "crm.leadsTitle" :
+      path.startsWith("/crm/deals") ? "crm.dealsTitle" :
+      path.startsWith("/crm/accounts") ? "crm.accountsTitle" :
+      path.startsWith("/crm/contacts") ? "crm.contactsTitle" :
+      path.startsWith("/hr/employees") ? "hr.employeesTitle" :
+      path.startsWith("/res/projects") ? "res.projectsTitle" :
+      path.startsWith("/res/assignments") ? "res.assignmentsTitle" :
+      path.startsWith("/erp/invoices") ? "erp.invoicesTitle" :
+      path.startsWith("/data/events") ? "data.eventsTitle" :
+      path.startsWith("/login") ? "auth.login" :
+      "";
+
+    const appName = t("appName");
+    const pageTitle = titleKey ? t(titleKey) : "";
+    document.title = pageTitle ? `${appName} - ${pageTitle}` : appName;
+  }, [location.pathname, i18n.language, t]);
 
   const loggedIn = Boolean(getToken());
 

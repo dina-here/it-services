@@ -3,28 +3,36 @@
     "employeeKey": "e_consult1",
     "projectKey": "p_baltic_impl",
     "belaggningPct": 60,
-    "fran": "2024-12-10T09:00:00.000Z",
-    "till": "2025-02-28T17:00:00.000Z"
+    "fran": "2025-10-01T09:00:00.000Z",
+    "till": "2025-12-15T17:00:00.000Z",
+    "status": "SLUTFÖRD",
+    "resursbehov": "Frontend lead 60%"
   },
   {
     "employeeKey": "e_consult2",
     "projectKey": "p_baltic_impl",
     "belaggningPct": 50,
-    "fran": "2025-01-05T09:00:00.000Z",
-    "till": "2025-03-31T17:00:00.000Z"
+    "fran": "2025-10-15T09:00:00.000Z",
+    "till": "2025-12-20T17:00:00.000Z",
+    "status": "SLUTFÖRD",
+    "resursbehov": "Backend/API 50%"
   },
   {
     "employeeKey": "e_chef",
     "projectKey": "p_northwind_poc",
-    "belaggningPct": 10,
-    "fran": "2025-01-08T09:00:00.000Z",
-    "till": "2025-01-31T17:00:00.000Z"
+    "belaggningPct": 20,
+    "fran": "2025-12-15T09:00:00.000Z",
+    "till": "2026-02-15T17:00:00.000Z",
+    "status": "BEMANNAD",
+    "resursbehov": "Tech lead 20%"
   },
   {
     "employeeKey": "e_consult3",
     "projectKey": "p_northwind_poc",
     "belaggningPct": 40,
-    "fran": "2025-01-13T09:00:00.000Z",
-    "till": "2025-03-15T17:00:00.000Z"
+    "fran": "2025-12-20T09:00:00.000Z",
+    "till": "2026-03-15T17:00:00.000Z",
+    "status": "BEMANNAD",
+    "resursbehov": "Fullstack 40%"
   }
 ]

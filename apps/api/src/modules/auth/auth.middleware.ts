@@ -40,6 +40,7 @@ export function requireAuth(req: AuthedRequest, _res: Response, next: NextFuncti
 export function requireRole(...roles: UserRoll[]) {
   return (req: AuthedRequest, _res: Response, next: NextFunction) => {
     if (!req.user) return next(new HttpError(401, "Ej inloggad."));
+    if (req.user.roll === "SUPERADMIN") return next();
     if (!roles.includes(req.user.roll)) return next(new HttpError(403, "Saknar behörighet."));
     next();
   };

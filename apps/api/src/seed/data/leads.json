@@ -10,7 +10,7 @@
     "namn": "Per Holm",
     "epost": "per.holm@northwind.se",
     "kalla": "Webbformulär",
-    "status": "NY",
+    "status": "KVALIFICERAD",
     "_accountKey": "a_northwind"
   },
   {
@@ -24,7 +24,7 @@
     "namn": "Marcus Dahl",
     "epost": "marcus.dahl@gronenergi.se",
     "kalla": "Event (TechDays)",
-    "status": "NY",
+    "status": "AVSLUTAD",
     "_accountKey": "a_gronenergi"
   }
 ]

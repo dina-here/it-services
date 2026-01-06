@@ -4,10 +4,13 @@
     "accountKey": "a_northwind",
     "namn": "CRM-uppgradering + Integration",
     "vardeSEK": 850000,
-    "fas": "OFFERT",
-    "sannolikhet": 60,
+    "fas": "VUNNEN",
+    "sannolikhet": 100,
     "agareEmployeeKey": "e_sales",
-    "forvantatAvslut": "2025-02-15T12:00:00.000Z"
+    "forvantatAvslut": "2026-02-15T12:00:00.000Z",
+    "kontaktNamn": "Per Holm",
+    "kontaktEpost": "per.holm@northwind.se",
+    "kontaktTitel": "IT-chef"
   },
   {
     "dealKey": "d_stadspartner_data",
@@ -17,7 +20,10 @@
     "fas": "MOTE",
     "sannolikhet": 40,
     "agareEmployeeKey": "e_sales",
-    "forvantatAvslut": "2025-03-10T12:00:00.000Z"
+    "forvantatAvslut": "2026-03-10T12:00:00.000Z",
+    "kontaktNamn": "Karin Ek",
+    "kontaktEpost": "karin.ek@stadspartner.se",
+    "kontaktTitel": "Upphandlingsansvarig"
   },
   {
     "dealKey": "d_baltic_resurs",
@@ -25,9 +31,12 @@
     "namn": "Resursplanering + Timesheet (POC)",
     "vardeSEK": 420000,
     "fas": "VUNNEN",
-    "sannolikhet": 90,
+    "sannolikhet": 100,
     "agareEmployeeKey": "e_sales",
-    "forvantatAvslut": "2024-12-05T12:00:00.000Z"
+    "forvantatAvslut": "2025-12-05T12:00:00.000Z",
+    "kontaktNamn": "Sofia Lundqvist",
+    "kontaktEpost": "sofia.lundqvist@balticlogistik.se",
+    "kontaktTitel": "Operations Manager"
   },
   {
     "dealKey": "d_gronenergi_cloud",
@@ -37,6 +46,9 @@
     "fas": "FORLORAD",
     "sannolikhet": 10,
     "agareEmployeeKey": "e_sales",
-    "forvantatAvslut": "2024-11-20T12:00:00.000Z"
+    "forvantatAvslut": "2024-11-20T12:00:00.000Z",
+    "kontaktNamn": "Marcus Dahl",
+    "kontaktEpost": "marcus.dahl@gronenergi.se",
+    "kontaktTitel": "CTO"
   }
 ]

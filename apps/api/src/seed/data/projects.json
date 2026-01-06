@@ -3,15 +3,14 @@
     "projectKey": "p_baltic_impl",
     "dealKey": "d_baltic_resurs",
     "accountKey": "a_baltic",
-    "namn": "Baltic – Implementering Resursplanering",
-    "start": "2024-12-10T09:00:00.000Z",
-    "slut": "2025-03-31T17:00:00.000Z"
+    "start": "2025-09-15T09:00:00.000Z",
+    "slut": "2025-12-31T17:00:00.000Z"
   },
   {
     "projectKey": "p_northwind_poc",
     "dealKey": "d_northwind_crm",
     "accountKey": "a_northwind",
-    "namn": "Northwind – CRM POC",
-    "start": "2025-01-08T09:00:00.000Z"
+    "start": "2025-12-10T09:00:00.000Z",
+    "slut": "2026-03-20T17:00:00.000Z"
   }
 ]

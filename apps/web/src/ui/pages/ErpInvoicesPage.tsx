@@ -77,12 +77,12 @@ export function ErpInvoicesPage() {
                       defaultValue={i.status}
                       onChange={(e) => handleStatusChange(i._id, e.target.value)}
                     >
-                      <option value="UTKAST">UTKAST</option>
-                      <option value="SKICKAD">SKICKAD</option>
-                      <option value="BETALD">BETALD</option>
+                      <option value="UTKAST">{t("invoiceStatus.UTKAST")}</option>
+                      <option value="SKICKAD">{t("invoiceStatus.SKICKAD")}</option>
+                      <option value="BETALD">{t("invoiceStatus.BETALD")}</option>
                     </select>
                   ) : (
-                    <span className="badge">{i.status}</span>
+                    <span className="badge">{t(`invoiceStatus.${i.status}`)}</span>
                   )}
                 </td>
                 <td>{formatDate(i.forfallodatum)}</td>
@@ -92,7 +92,7 @@ export function ErpInvoicesPage() {
                     style={{ padding: "4px 8px", fontSize: 12 }}
                     onClick={() => setEditingId(editingId === i._id ? null : i._id)}
                   >
-                    {editingId === i._id ? "Avbryt" : "Ändra status"}
+                    {editingId === i._id ? t("common.cancel") : t("common.changeStatus")}
                   </button>
                 </td>
               </tr>

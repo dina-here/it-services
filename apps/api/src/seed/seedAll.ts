@@ -122,7 +122,9 @@ export async function seedAll() {
   );
 
   const dealByKey = new Map<string, string>();
+  const dealById = new Map<string, any>();
   for (const d of deals as any[]) dealByKey.set(d.dealKey, String(d._id));
+  for (const d of deals as any[]) dealById.set(String(d._id), d);
 
   // 6) Resurs: projects (kopplade till deals)
   const projects = await ProjectModel.insertMany(
@@ -146,6 +148,31 @@ export async function seedAll() {
       forfallodatum: new Date(inv.forfallodatum),
     }))
   );
+
+  // Ensure every project has at least one invoice (helps seeded assignments complete properly)
+  const projectIdsWithInvoice = new Set<string>((invoices as any[]).map((inv) => String(inv.projectId)));
+  for (const project of projects as any[]) {
+    const pid = String(project._id);
+    if (projectIdsWithInvoice.has(pid)) continue;
+
+    const dealForProject = project.dealId ? dealById.get(String(project.dealId)) : null;
+    const beloppSEK = typeof dealForProject?.vardeSEK === "number" ? dealForProject.vardeSEK : 0;
+
+    const inv = await InvoiceModel.create({
+      projectId: project._id,
+      beloppSEK,
+      status: "UTKAST",
+      forfallodatum: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+    });
+    projectIdsWithInvoice.add(pid);
+
+    await EventModel.create({
+      typ: "INVOICE_SKAPAD",
+      entitet: "invoice",
+      entitetId: String(inv._id),
+      payload: { fromSeed: true, projectId: pid },
+    });
+  }
 
   // 8) Resurs: assignments
   const assignments = await AssignmentModel.insertMany(

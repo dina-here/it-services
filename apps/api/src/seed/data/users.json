@@ -7,6 +7,13 @@
     "employeeKey": "e_admin"
   },
   {
+    "userKey": "u_super",
+    "epost": "superadmin@karriarops.se",
+    "losen": "Losen123!",
+    "roll": "SUPERADMIN",
+    "employeeKey": "e_admin"
+  },
+  {
     "userKey": "u_chef",
     "epost": "chef@karriarops.se",
     "losen": "Losen123!",

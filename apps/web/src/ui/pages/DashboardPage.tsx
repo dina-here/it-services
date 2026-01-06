@@ -11,29 +11,47 @@ export function DashboardPage() {
   const [revenueByConsultant, setRevenueByConsultant] = useState<any[]>([]);
   const [fel, setFel] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [me, setMe] = useState<any>(null);
+  const [resetMsg, setResetMsg] = useState<string | null>(null);
+  const utilRows = useMemo(() => utilization.filter((u) => (u.belaggningPct || 0) > 0), [utilization]);
+  const revenueConsultantRows = useMemo(() => revenueByConsultant.filter((c) => (c.estimatedRevenue || 0) > 0), [revenueByConsultant]);
+
+  const loadDashboard = async () => {
+    try {
+      setLoading(true);
+      const [ovData, utilData, custData, consData] = await Promise.all([
+        api.get("/data/dashboard/overview"),
+        api.get("/data/dashboard/consultant-utilization"),
+        api.get("/data/dashboard/revenue-by-customer"),
+        api.get("/data/dashboard/revenue-by-consultant"),
+      ]);
+      setOverview(ovData);
+      setUtilization(utilData);
+      setRevenueByCustomer(custData);
+      setRevenueByConsultant(consData);
+    } catch (err: any) {
+      setFel(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const loadDashboard = async () => {
-      try {
-        setLoading(true);
-        const [ovData, utilData, custData, consData] = await Promise.all([
-          api.get("/data/dashboard/overview"),
-          api.get("/data/dashboard/consultant-utilization"),
-          api.get("/data/dashboard/revenue-by-customer"),
-          api.get("/data/dashboard/revenue-by-consultant"),
-        ]);
-        setOverview(ovData);
-        setUtilization(utilData);
-        setRevenueByCustomer(custData);
-        setRevenueByConsultant(consData);
-      } catch (err: any) {
-        setFel(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    api.me().then((r) => setMe(r.user)).catch(() => {});
     loadDashboard();
   }, []);
+
+  const handleDemoReset = async () => {
+    if (!window.confirm(t("dashboard.demoResetConfirm"))) return;
+    setResetMsg(null);
+    try {
+      const res = await api.demoReset();
+      setResetMsg(res.message || t("dashboard.demoResetDone"));
+      await loadDashboard();
+    } catch (err: any) {
+      setResetMsg(err.message || "Fel vid reset");
+    }
+  };
 
   if (loading) {
     return <div className="card"><p>Laddar dashboard...</p></div>;
@@ -43,7 +61,17 @@ export function DashboardPage() {
     <div>
       <div className="row">
         <div className="col card">
-          <h2 style={{ marginTop: 0 }}>{t("dashboard.title")}</h2>
+          <div className="row" style={{ justifyContent: "space-between", alignItems: "center" }}>
+            <h2 style={{ marginTop: 0 }}>{t("dashboard.title")}</h2>
+            {me?.roll === "SUPERADMIN" ? (
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <button className="button ghost" onClick={handleDemoReset}>
+                  {t("dashboard.demoReset")}
+                </button>
+                {resetMsg ? <span className="small">{resetMsg}</span> : null}
+              </div>
+            ) : null}
+          </div>
           {fel ? <div className="small" style={{ color: "crimson" }}>{fel}</div> : null}
 
           <div className="row">
@@ -65,7 +93,7 @@ export function DashboardPage() {
             <tbody>
               {overview?.deals?.map((d: any) => (
                 <tr key={d._id}>
-                  <td><span className="badge">{d._id}</span></td>
+                  <td><span className="badge">{t(`stage.${d._id}`)}</span></td>
                   <td>{d.count}</td>
                   <td>{d.totalVarde?.toLocaleString()} SEK</td>
                 </tr>
@@ -109,7 +137,7 @@ export function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {utilization?.map((u: any) => (
+              {(utilRows?.length ? utilRows : []).map((u: any) => (
                 <tr key={u.employeeId}>
                   <td>{u.employeeNamn}</td>
                   <td>
@@ -144,7 +172,7 @@ export function DashboardPage() {
               </tr>
             </thead>
             <tbody>
-              {revenueByConsultant?.slice(0, 10)?.map((c: any) => (
+              {(revenueConsultantRows?.slice(0, 10) || []).map((c: any) => (
                 <tr key={c.employeeId}>
                   <td>{c.employeeNamn}</td>
                   <td>{c.estimatedRevenue?.toLocaleString()} SEK</td>
