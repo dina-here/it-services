@@ -6,7 +6,7 @@ const adminRouter = Router();
 
 adminRouter.use(requireAuth);
 
-adminRouter.post("/demo-reset", requireRole("SUPERADMIN"), async (_req: AuthedRequest, res, next) => {
+adminRouter.post("/demo-reset", requireAuth, async (_req: AuthedRequest, res, next) => {
   try {
     const demoModeEnv = process.env.DEMO_MODE;
     const demoMode = String(demoModeEnv ?? (process.env.NODE_ENV !== "production" ? "true" : "false")).toLowerCase() === "true";
