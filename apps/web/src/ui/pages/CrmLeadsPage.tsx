@@ -213,6 +213,7 @@ export function CrmLeadsPage() {
         </form>
       )}
 
+      <div className="table-wrapper">
       <table className="table">
         <thead>
           <tr>
@@ -241,6 +242,7 @@ export function CrmLeadsPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

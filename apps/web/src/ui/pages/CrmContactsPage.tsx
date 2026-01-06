@@ -17,6 +17,7 @@ export function CrmContactsPage() {
       <h2 style={{ marginTop: 0 }}>{t("crm.contactsTitle")}</h2>
       {fel ? <div className="small" style={{ color: "crimson" }}>{fel}</div> : null}
 
+      <div className="table-wrapper">
       <table className="table">
         <thead>
           <tr>
@@ -37,6 +38,7 @@ export function CrmContactsPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

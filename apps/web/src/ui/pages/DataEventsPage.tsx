@@ -32,7 +32,7 @@ export function DataEventsPage() {
 
       {fel ? <div className="small" style={{ color: "crimson" }}>{fel}</div> : null}
 
-      <div style={{ overflowX: "auto" }}>
+      <div className="table-wrapper">
         <table className="table">
           <thead>
             <tr>

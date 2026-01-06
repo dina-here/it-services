@@ -453,6 +453,7 @@ export function CrmDealsPage() {
         </form>
       )}
 
+      <div className="table-wrapper">
       <table className="table">
         <thead>
           <tr>
@@ -527,6 +528,7 @@ export function CrmDealsPage() {
           ))}
         </tbody>
       </table>
+      </div>
 
     </div>
   );

@@ -178,6 +178,7 @@ export function CrmAccountsPage() {
         </form>
       )}
 
+      <div className="table-wrapper">
       <table className="table">
         <thead>
           <tr>
@@ -200,6 +201,7 @@ export function CrmAccountsPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

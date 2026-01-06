@@ -15,11 +15,20 @@ KarriärOps är en proof-of-concept för ett modulärt affärssystem för ett IT
 
 ## Funktioner
 - Dashboard (totala tal, affärer per status, bekäggning / intäkt per konsult, intäkt per kund)
-- CRM (leads, accounts, kontakter, affärer) - i framtiden ska utveckla till Kundhantering
-- Mini-ERP (fakturor kopplade till affärer) - i framtiden ska utveckla till Affärsprocesser
 - HR (anställda, roller, kompetenser)
-- Resurssystem (projekt, beläggning/assignments)
-- Dataplattform (händelselogg + KPI:er) - i framtiden ska utveckla till Samlad data
+- Kunder
+- Leads
+- Deals (kunder, kontakter, affärer)
+- Beläggning (projekt, assignments)
+- Fakturor (fakturor kopplade till affärer)
+- HändelseLogg
+
+## Affärslogik & automatisering
+
+Utöver det som är synligt i UI innehåller systemet även grundläggande affärslogik som visar hur modulerna hänger ihop i praktiken:
+- När en affär manuellt ändras till status VUNNEN, skapas automatiskt en ny post i Resurssystemet (Beläggning) med status NY.
+- När en konsult manuellt tilldelas denna beläggning uppdateras statusen från NY till BEMANNAD, och en ny faktura skapas automatiskt med status UTKAST.
+Syftet är att visa hur ett affärssystem kan koppla samman sälj → leverans → ekonomi genom händelsedriven flöde.
 
 ## Teknikstack
 - Frontend: React + TypeScript + Vite
@@ -29,8 +38,8 @@ KarriärOps är en proof-of-concept för ett modulärt affärssystem för ett IT
 - Säkerhet: JWT + RBAC (Admin / Chef / Medarbetare)
 
 ## Språk
-- Svenska 🇸🇪
-- Engelska 🇬🇧 (växlas via knapp i UI)
+- Svenska SE
+- Engelska GB (växlas via knapp i UI)
 ---
 
 ## Kör lokalt (Docker)

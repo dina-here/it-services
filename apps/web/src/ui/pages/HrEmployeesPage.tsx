@@ -168,6 +168,7 @@ export function HrEmployeesPage() {
         </form>
       )}
 
+      <div className="table-wrapper">
       <table className="table">
         <thead>
           <tr>
@@ -241,6 +242,7 @@ export function HrEmployeesPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

@@ -133,6 +133,7 @@ export function ResAssignmentsPage() {
       <h2 style={{ marginTop: 0 }}>{t("res.assignmentsTitle")}</h2>
       {fel ? <div className="small" style={{ color: "crimson" }}>{fel}</div> : null}
 
+      <div className="table-wrapper">
       <table className="table">
         <thead>
           <tr>
@@ -273,6 +274,7 @@ export function ResAssignmentsPage() {
           ))}
         </tbody>
       </table>
+      </div>
     </div>
   );
 }

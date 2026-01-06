@@ -82,6 +82,7 @@ export function DashboardPage() {
           </div>
 
           <h3>{t("dashboard.dealsTitle")}</h3>
+          <div className="table-wrapper">
           <table className="table">
             <thead>
               <tr>
@@ -100,10 +101,12 @@ export function DashboardPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
 
         <div className="col card">
           <h3 style={{ marginTop: 0 }}>{t("dashboard.revenueByCustomer")}</h3>
+          <div className="table-wrapper">
           <table className="table">
             <thead>
               <tr>
@@ -122,12 +125,14 @@ export function DashboardPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
 
       <div className="row">
         <div className="col card">
           <h3 style={{ marginTop: 0 }}>{t("dashboard.utilizationByConsultant")}</h3>
+          <div className="table-wrapper">
           <table className="table">
             <thead>
               <tr>
@@ -160,10 +165,12 @@ export function DashboardPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
 
         <div className="col card">
           <h3 style={{ marginTop: 0 }}>{t("dashboard.revenueByConsultant")}</h3>
+          <div className="table-wrapper">
           <table className="table">
             <thead>
               <tr>
@@ -180,6 +187,7 @@ export function DashboardPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       </div>
     </div>
