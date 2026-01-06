@@ -4,9 +4,6 @@
 
 Fullstack POC (CRM, ERP, HR, Resurs, Data) byggd i React, TypeScript, Node.js och MongoDB.
 
-## Obs:
-Demo körs på Render free tier. Efter ~15 min utan trafik kan första laddningen ta lite längre tid (cold start). Detta är normalt för portfolio-demos.
-
 ## Starta projektet lokalt
 ```bash
 docker-compose up --build
@@ -25,9 +22,12 @@ KarriärOps är en proof-of-concept för ett modulärt affärssystem för ett IT
 
 ## Affärslogik & automatisering
 
-Utöver det som är synligt i UI innehåller systemet även grundläggande affärslogik som visar hur modulerna hänger ihop i praktiken:
-- När en affär manuellt ändras till status VUNNEN, skapas automatiskt en ny post i Resurssystemet (Beläggning) med status NY.
-- När en konsult manuellt tilldelas denna beläggning uppdateras statusen från NY till BEMANNAD, och en ny faktura skapas automatiskt med status UTKAST.
+Utöver det som är synligt i UI innehåller systemet även grundläggande affärslogik som visar hur modulerna
+hänger ihop i praktiken:
+- När en affär manuellt ändras till status VUNNEN, skapas automatiskt en ny post i Resurssystemet
+(Beläggning) med status NY.
+- När en konsult manuellt tilldelas denna beläggning uppdateras statusen från NY till BEMANNAD, och en ny
+faktura skapas automatiskt med status UTKAST.
 Syftet är att visa hur ett affärssystem kan koppla samman sälj → leverans → ekonomi genom händelsedriven flöde.
 
 ## Teknikstack
